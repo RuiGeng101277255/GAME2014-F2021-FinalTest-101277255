@@ -9,6 +9,12 @@ public class FloatingPlatformBehaviour : MonoBehaviour
     public float ShrinkingScaleFactor;
     public GameObject SolidGround;
 
+    [Header("SFX")]
+    public AudioSource ShrinkSFX;
+    public AudioSource ExpandSFX;
+    bool isSFXPlaying;
+    FloatingPlatformState currentState;
+
     bool hasPlayerLanded;
     Vector3 PlatformOrigin;
 
@@ -23,12 +29,12 @@ public class FloatingPlatformBehaviour : MonoBehaviour
     {
         ShrinkPlatform(hasPlayerLanded);
         bobbingEffect();
+        PlaySoundEffect();
     }
 
     void bobbingEffect()
     {
-        transform.position = new Vector3(transform.position.x,
-                PlatformOrigin.y + Mathf.PingPong(Time.time * BobbingFrequency, 0.5f), 0.0f);
+        transform.position = new Vector3(transform.position.x, PlatformOrigin.y + Mathf.PingPong(Time.time * BobbingFrequency, 0.5f), 0.0f);
     }
 
     void ShrinkPlatform(bool isPlayerOnTop)
@@ -39,11 +45,13 @@ public class FloatingPlatformBehaviour : MonoBehaviour
             if (currentScale.x > 0.0f)
             {
                 currentScale.x -= Time.deltaTime * ShrinkingScaleFactor;
+                currentState = FloatingPlatformState.SHRINKING;
                 //shrink more
             }
             else
             {
                 currentScale.x = 0.0f;
+                currentState = FloatingPlatformState.NOTHING;
             }
         }
         else
@@ -51,16 +59,57 @@ public class FloatingPlatformBehaviour : MonoBehaviour
             if (currentScale.x < 1.0f)
             {
                 currentScale.x += Time.deltaTime * ShrinkingScaleFactor;
+                currentState = FloatingPlatformState.EXPANDING;
                 //expand more
             }
             else
             {
                 currentScale.x = 1.0f;
+                currentState = FloatingPlatformState.NOTHING;
             }
         }
 
         SolidGround.transform.localScale = currentScale;
     }
+
+    void PlaySoundEffect()
+    {
+        if (currentState != FloatingPlatformState.NOTHING)
+        {
+            if ((currentState == FloatingPlatformState.SHRINKING) && (!ShrinkSFX.isPlaying))
+            {
+                ExpandSFX.Stop();
+                ShrinkSFX.Play();
+            }
+            else if ((currentState == FloatingPlatformState.EXPANDING) && (!ExpandSFX.isPlaying))
+            {
+                ShrinkSFX.Stop();
+                ExpandSFX.Play();
+            }
+            isSFXPlaying = true;
+
+
+            //if (!isSFXPlaying)
+            //{
+            //    if (currentState == FloatingPlatformState.SHRINKING)
+            //    {
+            //        ShrinkSFX.Play();
+            //    }
+            //    else if (currentState == FloatingPlatformState.EXPANDING)
+            //    {
+            //        ExpandSFX.Play();
+            //    }
+            //}
+        }
+        else
+        {
+            ShrinkSFX.Stop();
+            ExpandSFX.Stop();
+            //ShrinkAndExpandSFX.Stop();
+            isSFXPlaying = false;
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.GetComponent<PlayerBehaviour>() != null)
@@ -76,4 +125,11 @@ public class FloatingPlatformBehaviour : MonoBehaviour
             hasPlayerLanded = false;
         }
     }
+}
+
+public enum FloatingPlatformState
+{
+    NOTHING,
+    SHRINKING,
+    EXPANDING
 }
