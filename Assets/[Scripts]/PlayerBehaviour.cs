@@ -279,7 +279,7 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (other.gameObject.CompareTag("Moving Platform"))
         {
-            other.gameObject.GetComponent<MovingPlatformController>().isActive = true;
+            //other.gameObject.GetComponent<MovingPlatformController>().isActive = true;
             transform.SetParent(other.gameObject.transform);
         }
     }
@@ -288,7 +288,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Moving Platform"))
         {
-            other.gameObject.GetComponent<MovingPlatformController>().isActive = false;
+            //other.gameObject.GetComponent<MovingPlatformController>().isActive = false;
             transform.SetParent(parent);
         }
     }
