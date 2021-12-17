@@ -1,4 +1,12 @@
-﻿using System.Collections;
+﻿/*
+ Full Name: Rui Chen Geng Li (101277255)
+ File Name: PlayerBehaviour.cs
+ Last Modified: December 17th, 2021
+ Description: Controls the player behaviour, that are apart from the playercontroller script
+ Version History: v1.01 Added Internal Document To This Template Script
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using Unity.Mathematics;

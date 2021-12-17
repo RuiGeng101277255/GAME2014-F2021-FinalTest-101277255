@@ -1,3 +1,11 @@
+/*
+ Full Name: Rui Chen Geng Li (101277255)
+ File Name: FloatingPlatformBehaviour.cs
+ Last Modified: December 17th, 2021
+ Description: A floating platform that will shrink in size when the player lands on it, and expand when the player leave it.
+ Version History: v1.05 Fixed minor glitches and included the internal document
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -46,7 +54,6 @@ public class FloatingPlatformBehaviour : MonoBehaviour
             {
                 currentScale.x -= Time.deltaTime * ShrinkingScaleFactor;
                 currentState = FloatingPlatformState.SHRINKING;
-                //shrink more
             }
             else
             {
@@ -87,25 +94,11 @@ public class FloatingPlatformBehaviour : MonoBehaviour
                 ExpandSFX.Play();
             }
             isSFXPlaying = true;
-
-
-            //if (!isSFXPlaying)
-            //{
-            //    if (currentState == FloatingPlatformState.SHRINKING)
-            //    {
-            //        ShrinkSFX.Play();
-            //    }
-            //    else if (currentState == FloatingPlatformState.EXPANDING)
-            //    {
-            //        ExpandSFX.Play();
-            //    }
-            //}
         }
         else
         {
             ShrinkSFX.Stop();
             ExpandSFX.Stop();
-            //ShrinkAndExpandSFX.Stop();
             isSFXPlaying = false;
         }
     }

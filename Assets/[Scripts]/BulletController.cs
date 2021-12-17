@@ -1,4 +1,12 @@
-﻿using System.Collections;
+﻿/*
+ Full Name: Rui Chen Geng Li (101277255)
+ File Name: BulletController.cs
+ Last Modified: December 17th, 2021
+ Description: Controls the behaviour and motion of the spawned bullets
+ Version History: v1.01 Added Internal Document To This Template Script
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;

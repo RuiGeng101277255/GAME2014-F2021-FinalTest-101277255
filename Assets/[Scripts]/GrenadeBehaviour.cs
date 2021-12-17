@@ -1,4 +1,12 @@
-﻿using System.Collections;
+﻿/*
+ Full Name: Rui Chen Geng Li (101277255)
+ File Name: GrenadeBehaviour.cs
+ Last Modified: December 17th, 2021
+ Description: Defines the granade's behaviour and effects
+ Version History: v1.01 Added Internal Document To This Template Script
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
